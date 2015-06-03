@@ -60,7 +60,7 @@ public class Dijkstra {
 	    while (!vtq.isEmpty()){
 	    	//fetch the node with highest priority in queue
 	    	Vertex cur = vtq.poll();
-	    	System.out.println("Currently checking node: " + cur);
+	    	System.out.println("Currently checking node........" + cur);
 		    // stop when find the minimum distance to target node
 	    	if (cur.nodeid.equals(target.nodeid)){
 		    	break;
