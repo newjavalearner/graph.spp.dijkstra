@@ -23,7 +23,7 @@ public class SimpleTest {
 		graph[5].postlinks = new Edge[]{ new Edge(graph[6], 2) };
 		
 		Dijkstra djk = new Dijkstra();
-		System.out.println("The origin and destination: " + graph[0] + " and " + graph[3]);
+		System.out.println("The origin and destination: " + graph[0] + " and " + graph[6]);
 		djk.getNetwork(graph);
 		djk.getSP("A", "G");
 		System.out.println("The shortest distance: " + djk.distance);
