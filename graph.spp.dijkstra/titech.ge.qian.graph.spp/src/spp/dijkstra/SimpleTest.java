@@ -29,7 +29,7 @@ public class SimpleTest {
 		for (ArrayList<Vertex> path : djk.paths){
 			System.out.println("Path: " + path);
 		}
-		
+		System.out.println("github test");
 	}
 	
 }
