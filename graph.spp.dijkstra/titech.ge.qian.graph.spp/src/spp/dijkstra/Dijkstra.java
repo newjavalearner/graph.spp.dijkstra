@@ -92,7 +92,8 @@ public class Dijkstra {
 		    	}
 		    }
 	    }
-	    //the problem: arraylist of arraylist is used improperly in this implementation
+	    //List of String is used improperly in this implementation, to note we have to use CopyOnWriteArrayList to avoid concurrent
+	    // problem: an Arraylist can't be added and deleted value at the same time
 	    List<String> temppaths = new CopyOnWriteArrayList<String>();
 	    String incrementpath = target.nodeid;
 	    temppaths.add(incrementpath);
@@ -113,7 +114,7 @@ public class Dijkstra {
 		    	}
 	    	}
 	    }
-	    //reverse the order of nodes to form  forward path;
+	    //reverse the order of nodes to form forward path;
 	    ArrayList<String> pathset = new ArrayList<String>();
 	    for (String path : temppaths){
 	    	StringBuffer newpath = new StringBuffer(path);
