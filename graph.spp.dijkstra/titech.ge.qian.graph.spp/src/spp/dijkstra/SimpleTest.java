@@ -1,7 +1,5 @@
 package spp.dijkstra;
 
-import java.util.ArrayList;
-
 public class SimpleTest {
 	public static void main(String[] args){
 		Vertex[] graph = new Vertex[7];
