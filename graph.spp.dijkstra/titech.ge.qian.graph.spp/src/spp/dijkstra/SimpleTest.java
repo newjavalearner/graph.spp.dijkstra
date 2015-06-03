@@ -24,12 +24,10 @@ public class SimpleTest {
 		
 		Dijkstra djk = new Dijkstra();
 		System.out.println("The origin and destination: " + graph[0] + " and " + graph[3]);
-		djk.getSP("A", "D", graph);
+		djk.getNetwork(graph);
+		djk.getSP("A", "D");
 		System.out.println("The shortest distance: " + djk.distance);
-		for (ArrayList<Vertex> path : djk.paths){
-			System.out.println("Path: " + path);
-		}
-		System.out.println("github test");
+		System.out.println("Paths are: " + djk.paths);
 	}
 	
 }

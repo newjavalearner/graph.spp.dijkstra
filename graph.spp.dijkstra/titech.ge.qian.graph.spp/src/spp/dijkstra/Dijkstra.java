@@ -3,31 +3,46 @@ package spp.dijkstra;
 import java.util.PriorityQueue;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Dijkstra {
 	
 	public List<Vertex> fullpath;
-	public ArrayList<ArrayList<Vertex>> paths = new ArrayList<ArrayList<Vertex>>();
+	public ArrayList<String> paths;
 	public int distance;
+	public Vertex[] graph;
 	
-	public int hasNode(ArrayList<ArrayList<Vertex>> temppaths){
+	public void getNetwork(Vertex[] network){
+		this.graph = network;
+	}
+	
+	public Vertex getLastNode(String sgpath){
+		Vertex latestnode = null;
+    	for (Vertex node : graph){
+			if(node.nodeid.equalsIgnoreCase(sgpath.substring(sgpath.length() - 1))){
+				latestnode = node;
+			}
+		}
+    	return latestnode;
+	}
+	
+	public int hasNode(List<String> temppaths){
 		int numberofnodes = 0;
-	    for (ArrayList<Vertex> sgpath:temppaths){
-	    	Vertex latestnode = sgpath.get(sgpath.size()-1);
-	    	if(latestnode.fornodes!=null){
+	    for (String sgpath:temppaths){
+	    	Vertex latestnode = getLastNode(sgpath);
+	    	if(!latestnode.fornodes.isEmpty()){
 	    		numberofnodes++;
 	    	}
 	    }
 	    return numberofnodes;
 	}
 	
-	public void getSP(String origin, String destination, Vertex[] network){
+	public void getSP(String origin, String destination){
 		//initialization
 		Vertex source = null;
 		Vertex target = null;
 		//get the source and target node from the network, given the name of OD
-		for (Vertex node : network){
+		for (Vertex node : graph){
 			if(node.nodeid.equalsIgnoreCase(origin)){
 				source = node;
 			}
@@ -38,7 +53,7 @@ public class Dijkstra {
 		source.mindist = 0;
 		// This priority queue stores the vertices that formulate the shortest path from the source node to the target node.
 		PriorityQueue<Vertex> vtq = new PriorityQueue<Vertex>();
-	    for (Vertex node:network){
+	    for (Vertex node:graph){
 	    	vtq.add(node);
 	    }
 	    //iteration over nodes
@@ -78,43 +93,35 @@ public class Dijkstra {
 		    }
 	    }
 	    //the problem: arraylist of arraylist is used improperly in this implementation
-	    ArrayList<ArrayList<Vertex>> temppaths = new ArrayList<ArrayList<Vertex>>();
-	    ArrayList<Vertex> incrementpath = new ArrayList<Vertex>();
-	    incrementpath.add(target);
+	    List<String> temppaths = new CopyOnWriteArrayList<String>();
+	    String incrementpath = target.nodeid;
 	    temppaths.add(incrementpath);
-	    
-	    for (ArrayList<Vertex> path : temppaths){
-			System.out.println("Path: " + path);
+	    for (String path : temppaths){
+			System.out.println("Paths: " + path);
 		}
-	    int counter = 0;
-	    while(hasNode(temppaths)>0){
-	    	for(ArrayList<Vertex> sgpath:temppaths){
-	    		Vertex latestnode = sgpath.get(sgpath.size()-1);
-	    		System.out.println("current last node's forward nodes: " + latestnode.fornodes);
-		    	if(latestnode.fornodes!=null){
+	    while(hasNode(temppaths)!=0){
+	    	for(String sgpath:temppaths){
+	    		Vertex latestnode = getLastNode(sgpath);
+		    	if(!latestnode.fornodes.isEmpty()){
 		    		for(Vertex node : latestnode.fornodes){
 		    			System.out.println("current node: " + node);
-		    			ArrayList<Vertex> newpath = sgpath;
-			    		newpath.add(node);
-			    		System.out.println("Path: " + newpath);
-			    		temppaths.add(counter, newpath);
-			    		counter ++;
+		    			String newpath = sgpath;
+			    		newpath+=node;
+			    		temppaths.add(newpath);
 		    		}
 		    	temppaths.remove(sgpath);
 		    	}
 	    	}
 	    }
-	    this.paths = temppaths;
-	    List<Vertex> path = new ArrayList<Vertex>();
-	    path.add(target);
-	    Vertex temp = target.prenode;
-	    while(temp!=null){
-	    	path.add(temp);
-	    	temp = temp.prenode;
+	    //reverse the order of nodes to form  forward path;
+	    ArrayList<String> pathset = new ArrayList<String>();
+	    for (String path : temppaths){
+	    	StringBuffer newpath = new StringBuffer(path);
+	    	String reversed = newpath.reverse().toString();
+	    	pathset.add(reversed);
 	    }
-	    Collections.reverse(path);
+	    this.paths = pathset;
 		this.distance = target.mindist;
-		this.fullpath = path;
 	}
 	
 }
