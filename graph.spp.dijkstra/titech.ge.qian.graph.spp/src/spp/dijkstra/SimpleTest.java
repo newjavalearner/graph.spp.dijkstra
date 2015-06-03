@@ -20,12 +20,12 @@ public class SimpleTest {
 		graph[2].postlinks = new Edge[]{ new Edge(graph[5], 7) };
 		graph[3].postlinks = new Edge[]{ new Edge(graph[6], 2) };
 		graph[4].postlinks = new Edge[]{ new Edge(graph[3], 3), new Edge(graph[5], 5) };
-		graph[5].postlinks = new Edge[]{ new Edge(graph[6], 1) };
+		graph[5].postlinks = new Edge[]{ new Edge(graph[6], 2) };
 		
 		Dijkstra djk = new Dijkstra();
 		System.out.println("The origin and destination: " + graph[0] + " and " + graph[3]);
 		djk.getNetwork(graph);
-		djk.getSP("A", "D");
+		djk.getSP("A", "G");
 		System.out.println("The shortest distance: " + djk.distance);
 		System.out.println("Paths are: " + djk.paths);
 	}

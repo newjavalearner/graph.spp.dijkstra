@@ -72,13 +72,13 @@ public class Dijkstra {
 		    	if (tempdist < postnode.mindist){
 		    		vtq.remove(postnode);
 		    		postnode.mindist = tempdist;
-		    		System.out.println("current short distance: "+tempdist);
+		    //		System.out.println("current short distance: "+tempdist);
 		    		if(!postnode.fornodes.isEmpty()){
-		    			System.out.println("not empty");
+		    //			System.out.println("not empty");
 		    			postnode.fornodes.clear();
 			    		postnode.fornodes.add(cur);
 		    		}else{
-		    			System.out.println("empty");
+		    //			System.out.println("empty");
 		    			postnode.fornodes.add(cur);
 		    		}
 		    		
@@ -97,15 +97,15 @@ public class Dijkstra {
 	    List<String> temppaths = new CopyOnWriteArrayList<String>();
 	    String incrementpath = target.nodeid;
 	    temppaths.add(incrementpath);
-	    for (String path : temppaths){
-			System.out.println("Paths: " + path);
-		}
+	    //for (String path : temppaths){
+		//	System.out.println("Paths: " + path);
+		//}
 	    while(hasNode(temppaths)!=0){
 	    	for(String sgpath:temppaths){
 	    		Vertex latestnode = getLastNode(sgpath);
 		    	if(!latestnode.fornodes.isEmpty()){
 		    		for(Vertex node : latestnode.fornodes){
-		    			System.out.println("current node: " + node);
+		//    			System.out.println("current node: " + node);
 		    			String newpath = sgpath;
 			    		newpath+=node;
 			    		temppaths.add(newpath);
