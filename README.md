@@ -1,4 +1,4 @@
-# graph.spp.dijkstra
+# Introduction
 
 This project is a simple implementation of the Dijkstra algorithm for finding the shortest path. 
 
